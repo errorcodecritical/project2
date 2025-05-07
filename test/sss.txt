@@ -1,0 +1,102 @@
+  location / {
+    # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
+    add_header Strict-Transport-Security $hsts_header always;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $http_connection;
+    proxy_http_version 1.1;
+
+    # Proxy!
+    include conf.d/include/proxy.conf;
+  }
+
+  # Custom
+  include /data/nginx/custom/server_proxy[.]conf;
+}
+
+server {
+  set $forward_scheme http;
+  set $server         "10.206.6.100";
+  set $port           1880;
+
+  listen 1880 ssl http2;
+  listen [::]:1880 ssl http2;
+  server_name clrobotica.deec.uc.pt;
+
+  # Let's Encrypt SSL
+  include conf.d/include/letsencrypt-acme-challenge.conf;
+  include conf.d/include/ssl-ciphers.conf;
+  ssl_certificate /etc/letsencrypt/live/npm-1/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/npm-1/privkey.pem;
+
+  # Force SSL
+  include conf.d/include/force-ssl.conf;
+
+  # Block Exploits
+  include conf.d/include/block-exploits.conf;
+
+  # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
+  add_header Strict-Transport-Security $hsts_header always;
+
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection $http_connection;
+  proxy_http_version 1.1;
+
+  access_log /data/logs/proxy-host-1_access.log proxy;
+  error_log /data/logs/proxy-host-1_error.log warn;
+
+  location / {
+    # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
+    add_header Strict-Transport-Security $hsts_header always;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $http_connection;
+    proxy_http_version 1.1;
+
+    # Proxy!
+    include conf.d/include/proxy.conf;
+  }
+
+  # Custom
+  include /data/nginx/custom/server_proxy[.]conf;
+}
+
+server {
+  set $forward_scheme http;
+  set $server         "10.206.6.102";
+  set $port           1234;
+
+  listen 1234 ssl http2;
+  listen [::]:1234 ssl http2;
+  server_name clrobotica.deec.uc.pt;
+
+  # Let's Encrypt SSL
+  include conf.d/include/letsencrypt-acme-challenge.conf;
+  include conf.d/include/ssl-ciphers.conf;
+  ssl_certificate /etc/letsencrypt/live/npm-1/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/npm-1/privkey.pem;
+
+  # Force SSL
+  include conf.d/include/force-ssl.conf;
+
+  # Block Exploits
+  include conf.d/include/block-exploits.conf;
+
+  # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
+  add_header Strict-Transport-Security $hsts_header always;
+
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection $http_connection;
+  proxy_http_version 1.1;
+
+  access_log /data/logs/proxy-host-1_access.log proxy;
+  error_log /data/logs/proxy-host-1_error.log warn;
+
+  location / {
+    # HSTS (ngx_http_headers_module is required) (63072000 seconds = 2 years)
+    add_header Strict-Transport-Security $hsts_header always;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $http_connection;
+    proxy_http_version 1.1;
+
+    # Proxy!
+    include conf.d/include/proxy.conf;
+  }
